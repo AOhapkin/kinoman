@@ -120,3 +120,23 @@ const countries = [
   'China',
   'Japan'
 ];
+
+export {
+  NAME_COUNT,
+  MAX_COMMENTS_ON_FILM,
+  GenreCount,
+  Rating,
+  AgeRating,
+  Runtime,
+  YearsDuration,
+  DaysDuration,
+  names,
+  surnames,
+  titles,
+  posters,
+  genres,
+  emotions,
+  description,
+  comment,
+  countries
+};

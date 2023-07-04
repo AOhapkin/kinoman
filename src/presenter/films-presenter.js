@@ -8,7 +8,7 @@ import FilmDetailsView from '../view/film-details-view.js';
 
 import { render } from '../render.js';
 
-const FILMS_COUNT = 5;
+import { FILM_COUNT } from '../const.js';
 
 export default class FilmPresenter {
   sortComponent = new SortView();
@@ -25,7 +25,7 @@ export default class FilmPresenter {
     render(this.filmsListComponent, this.filmsComponent.getElement());
     render(this.filmsListContainerComponent, this.filmsListComponent.getElement());
 
-    for (let i = 0; i < FILMS_COUNT; i++) {
+    for (let i = 0; i < FILM_COUNT; i++) {
       render(new FilmCardView(), this.filmsListContainerComponent.getElement());
     }
 

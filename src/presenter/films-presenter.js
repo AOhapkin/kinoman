@@ -31,7 +31,7 @@ export default class FilmPresenter {
       render(new FilmCardView(this.films[i]), this.filmsListContainerComponent.getElement());
     }
 
-    render(this.filmButtonMoreComponent, this.filmListComponent.getElement());
+    render(this.filmButtonMoreComponent, this.filmsListComponent.getElement());
 
     const comments = [...this.commentsModel.get(this.films[0])];
 

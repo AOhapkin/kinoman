@@ -1,8 +1,10 @@
 import HeaderProfileView from './view/header-profile-view.js';
 import FilterView from './view/filter-view.js';
-import FooterStatisticsView from './view/footer-statistics-view.js';
+import FooterStatisticView from './view/footer-statistics-view.js';
 
-import FilmPresenter from './presenter/films-presenter.js';
+import FilmsPresenter from './presenter/films-presenter.js';
+import FilmsModel from './model/films-model.js';
+import CommentsModel from './model/comments-model.js';
 
 import { render } from './render.js';
 
@@ -12,10 +14,13 @@ const siteMainElement = bodyElement.querySelector('.main');
 const siteFooterElement = bodyElement.querySelector('.footer');
 const siteFooterStatisticsElement = siteFooterElement.querySelector('.footer__statistics');
 
-const filmsPresenter = new FilmPresenter();
+const filmsModel = new FilmsModel();
+const commentsModel = new CommentsModel(filmsModel);
+
+const filmsPresenter = new FilmsPresenter();
 
 render(new HeaderProfileView(), siteHeaderElement);
 render(new FilterView(), siteMainElement);
-render(new FooterStatisticsView(), siteFooterStatisticsElement);
+render(new FooterStatisticView(), siteFooterStatisticsElement);
 
-filmsPresenter.init(siteMainElement);
+filmsPresenter.init(siteMainElement, filmsModel, commentsModel);

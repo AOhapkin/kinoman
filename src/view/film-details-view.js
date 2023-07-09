@@ -4,7 +4,7 @@ import { createFilmDetailsCommentsTemplate } from './film-details-comments-templ
 import { createFilmDetailsFormTemplate } from './film-details-form-template.js';
 import { createFilmDetailsControlsTemplate } from './film-details-controls-template.js';
 
-const createFilmDetailsTemplate = () =>
+const createFilmDetailsTemplate = ({ filmInfo }, comments) =>
   `
     <section class="film-details">
       <div class="film-details__inner">
@@ -12,13 +12,13 @@ const createFilmDetailsTemplate = () =>
           <div class="film-details__close">
             <button class="film-details__close-btn" type="button">close</button>
           </div>
-          ${createFilmDetailsInfoTemplate()}
+          ${createFilmDetailsInfoTemplate(filmInfo)}
           ${createFilmDetailsControlsTemplate()}
         </div>
         <div class="film-details__bottom-container">
           <section class="film-details__comments-wrap">
             <h3 class="film-details__comments-title">Comments <span class="film-details__comments-count">4</span></h3>
-            ${createFilmDetailsCommentsTemplate()}
+            ${createFilmDetailsCommentsTemplate(comments)}
             ${createFilmDetailsFormTemplate()}
           </section>
         </div>
@@ -27,19 +27,28 @@ const createFilmDetailsTemplate = () =>
   `;
 
 export default class FilmDetailsView {
-  getTemplate() {
-    return createFilmDetailsTemplate();
+  #element = null;
+  #film = null;
+  #comments = null;
+
+  constructor(film, comments) {
+    this.#film = film;
+    this.#comments = comments;
   }
 
-  getElement() {
-    if (!this.element) {
-      this.element = createElement(this.getTemplate());
+  get template() {
+    return createFilmDetailsTemplate(this.#film, this.#comments);
+  }
+
+  get element() {
+    if (!this.#element) {
+      this.#element = createElement(this.template);
     }
 
-    return this.element;
+    return this.#element;
   }
 
   removeElement() {
-    this.element = null;
+    this.#element = null;
   }
 }

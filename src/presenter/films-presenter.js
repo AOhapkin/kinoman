@@ -6,7 +6,7 @@ import FilmButtonMoreView from '../view/film-button-more-view.js';
 import FilmCardView from '../view/film-card-view.js';
 import FilmDetailsView from '../view/film-details-view.js';
 
-import { render } from '../render.js';
+import { render, remove } from '../framework/render.js';
 import { FILM_COUNT_PER_STEP } from '../const.js';
 
 export default class FilmPresenter {
@@ -71,7 +71,7 @@ export default class FilmPresenter {
   };
 
   #removeFilmDetailsComponent = () => {
-    this.#filmDetailsComponent.element.remove();
+    remove(this.#filmDetailsComponent);
     this.#filmDetailsComponent = null;
     document.body.classList.remove('hide-overflow');
   };

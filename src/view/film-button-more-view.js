@@ -3,21 +3,19 @@ import { createElement } from '../render.js';
 const createFilmButtonMoreTemplate = () => '<button class="films-list__show-more">Show more</button>';
 
 export default class FilmButtonMoreView {
-  #element = null;
-
-  get template() {
+  getTemplate() {
     return createFilmButtonMoreTemplate();
   }
 
-  get element() {
-    if (!this.#element) {
-      this.#element = createElement(this.template);
+  getElement() {
+    if (!this.element) {
+      this.element = createElement(this.getTemplate());
     }
 
-    return this.#element;
+    return this.element;
   }
 
   removeElement() {
-    this.#element = null;
+    this.element = null;
   }
 }

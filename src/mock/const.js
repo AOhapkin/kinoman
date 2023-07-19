@@ -32,6 +32,11 @@ const DaysDuration = {
   MAX: 7
 };
 
+const DateType = {
+  FILM_INFO: 'FILM_INFO',
+  USER_DETAILS: 'USER_DETAILS'
+};
+
 const titles = [
   'Country On Him',
   'Raiders With The Carpet',
@@ -132,6 +137,7 @@ export {
   DaysDuration,
   names,
   surnames,
+  DateType,
   titles,
   posters,
   genres,

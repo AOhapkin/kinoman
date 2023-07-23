@@ -1,13 +1,15 @@
 import SortView from '../view/sort-view.js';
 import FilmsView from '../view/films-view.js';
 import FilmsListView from '../view/films-list-view.js';
+import FilmListEmptyView from '../view/film-list-empty-view.js';
 import FilmListContainerView from '../view/films-list-container-view.js';
 import FilmButtonMoreView from '../view/film-button-more-view.js';
-import FilmDetailsView from '../view/film-details-view.js';
 
-import { render, remove } from '../framework/render.js';
+import FilmPresenter from './film-presenter.js';
+import FilmDetailsPresenter from './film-details-presenter.js';
+
+import { render } from '../framework/render.js';
 import { FILM_COUNT_PER_STEP } from '../const.js';
-import { FilmPresenter } from './film-presenter.js';
 import { updateItems } from '../utils/common.js';
 
 export default class FilmsPresenter {
@@ -16,7 +18,6 @@ export default class FilmsPresenter {
   #filmListComponent = new FilmsListView();
   #filmListContainerComponent = new FilmListContainerView();
   #filmButtonMoreComponent = new FilmButtonMoreView();
-  #filmDetailsComponent = null;
 
   #container = null;
   #filmsModel = null;

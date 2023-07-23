@@ -45,8 +45,44 @@ export default class FilmDetailsView extends AbstractView {
     this.element.querySelector('.film-details__close-btn').addEventListener('click', this.#closeBtnClickHandler);
   }
 
+  setWatchlistBtnClickHandler(callback) {
+    this._callback.watchlistBtnClick = callback;
+    this.element
+      .querySelector('.film-details__control-button--watchlist')
+      .addEventListener('click', this.#watchlistBtnClickHandler);
+  }
+
+  setWatchedBtnClickHandler(callback) {
+    this._callback.watchedBtnClick = callback;
+    this.element
+      .querySelector('.film-details__control-button--watched')
+      .addEventListener('click', this.#watchedBtnClickHandler);
+  }
+
+  setFavoriteBtnClickHandler(callback) {
+    this._callback.favoriteBtnClick = callback;
+    this.element
+      .querySelector('.film-details__control-button--favorite')
+      .addEventListener('click', this.#favoriteBtnClickHandler);
+  }
+
   #closeBtnClickHandler = (evt) => {
     evt.preventDefault();
     this._callback.closeBtnClick();
+  };
+
+  #watchlistBtnClickHandler = (evt) => {
+    evt.preventDefault();
+    this._callback.watchlistBtnClick();
+  };
+
+  #watchedBtnClickHandler = (evt) => {
+    evt.preventDefault();
+    this._callback.watchedBtnClick();
+  };
+
+  #favoriteBtnClickHandler = (evt) => {
+    evt.preventDefault();
+    this._callback.favoriteBtnClick();
   };
 }

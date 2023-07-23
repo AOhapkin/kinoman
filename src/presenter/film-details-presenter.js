@@ -25,7 +25,7 @@ export default class FilmDetailsPresenter {
 
     this.#filmDetailsComponent = new FilmDetailsView(this.#film, this.#comments);
 
-    this.filmDetailsComponent.setCloseBtnClickHandler(() => {
+    this.#filmDetailsComponent.setCloseBtnClickHandler(() => {
       this.#closeBtnClickHandler();
       document.removeEventListener('keydown', this.#escKeyDownHandler);
     });

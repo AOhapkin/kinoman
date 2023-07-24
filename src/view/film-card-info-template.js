@@ -5,7 +5,7 @@ export const createFilmCardInfoTemplate = (filmInfo, commentsLength) => {
     title, totalRating,
     release, runtime,
     genre, poster,
-    description
+    description,
   } = filmInfo;
 
   return `
@@ -17,8 +17,10 @@ export const createFilmCardInfoTemplate = (filmInfo, commentsLength) => {
         <span class="film-card__duration">${formatMinutesToTime(runtime)}</span>
         <span class="film-card__genre">${genre[0]}</span>
       </p>
-      <img src="${poster}" alt="" class="film-card__poster">
-      <p class="film-card__description">${description}</p>
+      <img src="${poster}" alt="" class="film-card__poster" />
+      <p class="film-card__description">
+        ${description}
+      </p>
       <span class="film-card__comments">
         ${commentsLength} comments
       </span>

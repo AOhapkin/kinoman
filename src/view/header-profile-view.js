@@ -4,7 +4,7 @@ const createHeaderProfileTemplate = (userStatus) =>
   `
     <section class="header__profile profile">
       ${(userStatus !== null) ? `<p class="profile__rating">${userStatus}</p>` : ''}
-      <img 
+      <img
         class="profile__avatar"
         src="images/bitmap@2x.png"
         alt="Avatar"

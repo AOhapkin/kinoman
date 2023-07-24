@@ -15,7 +15,7 @@ const createEmotionItem = (emotionItem) =>
         width="30"
         height="30"
         alt="emoji"
-      >
+      />
     </label>
   `;
 

@@ -9,7 +9,7 @@ const getRandomInteger = (a = 0, b = 1) => {
 const getRandomValue = (items) =>
   items[getRandomInteger(0, items.length - 1)];
 
-const updateItems = (items, update) => {
+const updateItem = (items, update) => {
   const index = items.findIndex((item) => item.id === update.id);
 
   if (index === -1) {
@@ -19,8 +19,8 @@ const updateItems = (items, update) => {
   return [
     ...items.slice(0, index),
     update,
-    ...items.slice(index + 1)
+    ...items.slice(index + 1),
   ];
 };
 
-export { getRandomInteger, getRandomValue, updateItems };
+export { getRandomInteger, getRandomValue, updateItem };

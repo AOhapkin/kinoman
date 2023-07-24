@@ -9,7 +9,7 @@ import FilmPresenter from './film-presenter.js';
 import FilmDetailsPresenter from './film-details-presenter.js';
 
 import { render } from '../framework/render.js';
-import { FILM_COUNT_PER_STEP } from '../const.js';
+import { FILM_COUNT_PER_STEP, SortType } from '../const.js';
 import { updateItems } from '../utils/common.js';
 
 export default class FilmsPresenter {
@@ -24,6 +24,7 @@ export default class FilmsPresenter {
   #commentsModel = null;
 
   #selectedFilm = null;
+  #currentSortType = SortType.DEFAULT;
 
   #films = [];
   #filmPresenter = new Map();

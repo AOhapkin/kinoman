@@ -10,6 +10,12 @@ const FilterType = {
   FAVORITES: 'favorites',
 };
 
+const SortType = {
+  DEFAULT: 'default',
+  DATE: 'date',
+  RATING: 'rating',
+};
+
 const UserStatusValue = {
   NOVICE: 0,
   FAN: 10,
@@ -28,6 +34,7 @@ export {
   EMOTIONS,
   FILTER_TYPE_ALL_NAME,
   FilterType,
+  SortType,
   UserStatusValue,
   UserStatusTitle
 };

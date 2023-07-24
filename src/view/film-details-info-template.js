@@ -24,11 +24,7 @@ export const createFilmDetailsInfoTemplate = (filmInfo) => {
   return `
     <div class="film-details__info-wrap">
       <div class="film-details__poster">
-        <img 
-          class="film-details__poster-img" 
-          src=${poster}
-          alt="${title}"
-        >
+        <img class="film-details__poster-img" src=${poster} alt="${title}" />
         <p class="film-details__age">${ageRating}+</p>
       </div>
 
@@ -67,7 +63,7 @@ export const createFilmDetailsInfoTemplate = (filmInfo) => {
           </tr>
           <tr class="film-details__row">
             <td class="film-details__term">Country</td>
-            <td class="film-details__cell">${release.releaseCountry}</td>
+            <td class="film-details__cell">${release.releaseСountry}</td>
           </tr>
           <tr class="film-details__row">
             <td class="film-details__term">${generateGenreTitle(genre)}</td>
@@ -76,9 +72,9 @@ export const createFilmDetailsInfoTemplate = (filmInfo) => {
             </td>
           </tr>
         </table>
-        
+
         <p class="film-details__film-description">
-          ${description}
+        ${description}
         </p>
       </div>
     </div>

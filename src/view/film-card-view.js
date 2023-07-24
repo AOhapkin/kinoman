@@ -2,13 +2,16 @@ import AbstractView from '../framework/view/abstract-view.js';
 import { createFilmCardInfoTemplate } from './film-card-info-template.js';
 import { createFilmCardControlsTemplate } from './film-card-controls-template.js';
 
-const createFilmCardViewTemplate = ({ filmInfo, comments }) =>
+const createFilmCardTemplate = ({ filmInfo, comments, userDetails }) =>
   `
     <article class="film-card">
+
       ${createFilmCardInfoTemplate(filmInfo, comments.length)}
-      ${createFilmCardControlsTemplate()}
+
+      ${createFilmCardControlsTemplate(userDetails)}
+
     </article>
-`;
+  `;
 
 export default class FilmCardView extends AbstractView {
   #film = null;
@@ -19,7 +22,7 @@ export default class FilmCardView extends AbstractView {
   }
 
   get template() {
-    return createFilmCardViewTemplate(this.#film);
+    return createFilmCardTemplate(this.#film);
   }
 
   setCardClickHandler(callback) {

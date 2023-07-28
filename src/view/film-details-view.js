@@ -55,7 +55,7 @@ export default class FilmDetailsView extends AbsctractStatefulView {
 
   _restoreHandlers = () => {
     this.setScrollPosition();
-    this.setInnerHandlers();
+    this.#setInnerHandlers();
     this.setCloseBtnClickHandler(this._callback.closeBtnClick);
     this.setWatchlistBtnClickHandler(this._callback.watchlistBtnClick);
     this.setWatchedBtnClickHandler(this._callback.watchedBtnClick);

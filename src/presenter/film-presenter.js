@@ -1,12 +1,16 @@
 import FilmCardView from '../view/film-card-view.js';
 import { render, replace, remove } from '../framework/render.js';
+import { UserAction, UpdateType } from '../const.js';
 
 export default class FilmPresenter {
   #container = null;
+
   #changeData = null;
   #clickCardHandler = null;
   #escKeyDownHandler = null;
+
   #filmCardComponent = null;
+
   #film = null;
 
   constructor(container, changeData, clickCardHandler, escKeyDownHandler) {
@@ -18,8 +22,11 @@ export default class FilmPresenter {
 
   init = (film) => {
     this.#film = film;
+
     const prevFilmCardComponent = this.#filmCardComponent;
+
     this.#filmCardComponent = new FilmCardView(this.#film);
+
     this.#filmCardComponent.setCardClickHandler(() => {
       this.#clickCardHandler(this.#film);
       document.addEventListener('keydown', this.#escKeyDownHandler);
@@ -34,6 +41,7 @@ export default class FilmPresenter {
     }
 
     replace(this.#filmCardComponent, prevFilmCardComponent);
+
     remove(prevFilmCardComponent);
   };
 
@@ -42,32 +50,41 @@ export default class FilmPresenter {
   };
 
   #watchlistBtnClickHandler = () => {
-    this.#changeData({
-      ...this.#film,
-      userDetails: {
-        ...this.#film.userDetails,
-        watchlist: !this.#film.userDetails.watchlist
-      },
-    });
+    this.#changeData(
+      UserAction.UPDATE_FILM,
+      UpdateType.PATCH,
+      {
+        ...this.#film,
+        userDetails: {
+          ...this.#film.userDetails,
+          watchlist: !this.#film.userDetails.watchlist
+        },
+      });
   };
 
   #watchedBtnClickHandler = () => {
-    this.#changeData({
-      ...this.#film,
-      userDetails: {
-        ...this.#film.userDetails,
-        alreadyWatched: !this.#film.userDetails.alreadyWatched
-      }
-    });
+    this.#changeData(
+      UserAction.UPDATE_FILM,
+      UpdateType.PATCH,
+      {
+        ...this.#film,
+        userDetails: {
+          ...this.#film.userDetails,
+          alreadyWatched: !this.#film.userDetails.alreadyWatched
+        }
+      });
   };
 
   #favoriteBtnClickHandler = () => {
-    this.#changeData({
-      ...this.#film,
-      userDetails: {
-        ...this.#film.userDetails,
-        favorite: !this.#film.userDetails.favorite
-      }
-    });
+    this.#changeData(
+      UserAction.UPDATE_FILM,
+      UpdateType.PATCH,
+      {
+        ...this.#film,
+        userDetails: {
+          ...this.#film.userDetails,
+          favorite: !this.#film.userDetails.favorite
+        }
+      });
   };
 }

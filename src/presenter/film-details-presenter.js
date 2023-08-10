@@ -28,9 +28,12 @@ export default class FilmDetailsPresenter {
     this.#escKeyDownHandler = escKeyDownHandler;
   }
 
-  init = (film, comments) => {
+  init = (film, comments, isCommentLoadingError) => {
     this.#film = film;
-    this.#comments = comments;
+
+    this.#comments = (!isCommentLoadingError)
+      ? comments
+      : [];
 
     const prevFilmDetailsComponent = this.#filmDetailsComponent;
 
@@ -38,7 +41,8 @@ export default class FilmDetailsPresenter {
       this.#film,
       this.#comments,
       this.#viewData,
-      this.#updateViewData
+      this.#updateViewData,
+      isCommentLoadingError
     );
 
     this.#filmDetailsComponent.setCloseBtnClickHandler(() => {
@@ -48,7 +52,10 @@ export default class FilmDetailsPresenter {
     this.#filmDetailsComponent.setWatchlistBtnClickHandler(this.#watchlistBtnClickHandler);
     this.#filmDetailsComponent.setWatchedBtnClickHandler(this.#watchedBtnClickHandler);
     this.#filmDetailsComponent.setFavoriteBtnClickHandler(this.#favoriteBtnClickHandler);
-    this.#filmDetailsComponent.setCommentDeleteClickHandler(this.#commentDeleteClickHandler);
+
+    if (!isCommentLoadingError) {
+      this.#filmDetailsComponent.setCommentDeleteClickHandler(this.#commentDeleteClickHandler);
+    }
 
     if (prevFilmDetailsComponent === null) {
       render(this.#filmDetailsComponent, this.#container);

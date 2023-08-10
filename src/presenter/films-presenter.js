@@ -2,6 +2,7 @@ import SortView from '../view/sort-view.js';
 import FilmsView from '../view/films-view.js';
 import FilmListView from '../view/film-list-view.js';
 import FilmListEmptyView from '../view/film-list-empty-view.js';
+import FilmListLoadingView from '../view/film-list-loading-view.js';
 import FilmListContainerView from '../view/film-list-container-view.js';
 import FilmButtonMoreView from '../view/film-button-more-view.js';
 
@@ -20,6 +21,7 @@ export default class FilmsPresenter {
   #filmListContainerComponent = new FilmListContainerView();
   #filmButtonMoreComponent = new FilmButtonMoreView();
   #filmListEmptyComponent = new FilmListEmptyView();
+  #filmListLoadingComponent = new FilmListLoadingView();
 
   #container = null;
   #filmsModel = null;
@@ -28,6 +30,7 @@ export default class FilmsPresenter {
 
   #selectedFilm = null;
   #currentSortType = SortType.DEFAULT;
+  #isLoading = true;
 
   #filmPresenter = new Map();
   #filmDetailsPresenter = null;
@@ -101,6 +104,11 @@ export default class FilmsPresenter {
         break;
       case UpdateType.MAJOR:
         this.#clearFilmBoard({ resetRenderedFilmCount: true, resetSortType: true });
+        this.#renderFilmBoard();
+        break;
+      case UpdateType.INIT:
+        this.#isLoading = false;
+        remove(this.#filmListLoadingComponent);
         this.#renderFilmBoard();
         break;
     }
@@ -181,8 +189,10 @@ export default class FilmsPresenter {
     this.#filmPresenter.set(film.id, filmPresenter);
   }
 
-  #renderFilmDetails() {
-    const comments = [...this.#commentsModel.get(this.#selectedFilm)];
+  #renderFilmDetails = async () => {
+    const comments = await this.#commentsModel.get(this.#selectedFilm);
+
+    const isCommentLoadingError = !comments;
 
     if (!this.#filmDetailsPresenter) {
       this.#filmDetailsPresenter = new FilmDetailsPresenter(
@@ -193,15 +203,22 @@ export default class FilmsPresenter {
       );
     }
 
-    document.addEventListener('keydown', this.#onCtrlEnterDown);
+    if (!isCommentLoadingError) {
+      document.addEventListener('keydown', this.#onCtrlEnterDown);
+    }
 
-    this.#filmDetailsPresenter.init(this.#selectedFilm, comments);
-  }
+    this.#filmDetailsPresenter.init(this.#selectedFilm, comments, isCommentLoadingError);
+  };
 
   #renderFilmBoard() {
     const films = this.films.slice(0, Math.min(this.films.length, FILM_COUNT_PER_STEP));
 
-    if (films.length === 0) {
+    if (this.#isLoading) {
+      render(this.#filmListLoadingComponent, this.#container);
+      return;
+    }
+
+    if (!this.#isLoading && films.length === 0) {
       render(this.#filmListEmptyComponent, this.#container);
       return;
     }

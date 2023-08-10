@@ -4,7 +4,7 @@ import { createFilmDetailsCommentsTemplate } from './film-details-comments-templ
 import { createFilmDetailsFormTemplate } from './film-details-form-template.js';
 import { createFilmDetailsControlsTemplate } from './film-details-controls-template.js';
 
-const createFilmDetailsTemplate = ({ filmInfo, userDetails, comments, checkedEmotion, comment }) =>
+const createFilmDetailsTemplate = ({ filmInfo, userDetails, comments, checkedEmotion, comment, isCommentLoadingError }) =>
   `
     <section class="film-details">
       <div class="film-details__inner">
@@ -22,12 +22,12 @@ const createFilmDetailsTemplate = ({ filmInfo, userDetails, comments, checkedEmo
         <div class="film-details__bottom-container">
           <section class="film-details__comments-wrap">
             <h3 class="film-details__comments-title">
-              Comments <span class="film-details__comments-count">${comments.length}</span>
+              ${((!isCommentLoadingError) ? `Comments <span class="film-details__comments-count">${comments.length}</span>` : 'Error loading comments')}
             </h3>
 
-            ${createFilmDetailsCommentsTemplate(comments)}
+            ${(!isCommentLoadingError) ? createFilmDetailsCommentsTemplate(comments) : ''}
 
-            ${createFilmDetailsFormTemplate(checkedEmotion, comment)}
+            ${createFilmDetailsFormTemplate(checkedEmotion, comment, isCommentLoadingError)}
 
           </section>
         </div>
@@ -36,17 +36,21 @@ const createFilmDetailsTemplate = ({ filmInfo, userDetails, comments, checkedEmo
  `;
 
 export default class FilmDetailsView extends AbsctractStatefulView {
-  constructor(film, comments, viewData, updateViewData) {
+  constructor(film, comments, viewData, updateViewData, isCommentLoadingError) {
     super();
     this._state = FilmDetailsView.parseFilmToState(
       film,
       comments,
       viewData.emotion,
       viewData.comment,
-      viewData.scrollPosition
+      viewData.scrollPosition,
+      isCommentLoadingError
     );
     this.updateViewData = updateViewData;
-    this.#setInnerHandlers();
+
+    if (!isCommentLoadingError) {
+      this.#setInnerHandlers();
+    }
   }
 
   get template() {
@@ -55,12 +59,15 @@ export default class FilmDetailsView extends AbsctractStatefulView {
 
   _restoreHandlers = () => {
     this.setScrollPosition();
-    this.#setInnerHandlers();
     this.setCloseBtnClickHandler(this._callback.closeBtnClick);
     this.setWatchlistBtnClickHandler(this._callback.watchlistBtnClick);
     this.setWatchedBtnClickHandler(this._callback.watchedBtnClick);
     this.setFavoriteBtnClickHandler(this._callback.favoriteBtnClick);
-    this.setCommentDeleteClickHandler(this._callback.commentDeleteClick);
+
+    if (!this._state.isCommentLoadingError) {
+      this.#setInnerHandlers();
+      this.setCommentDeleteClickHandler(this._callback.commentDeleteClick);
+    }
   };
 
   setCommentData = () => {
@@ -175,10 +182,12 @@ export default class FilmDetailsView extends AbsctractStatefulView {
     comments,
     checkedEmotion = null,
     comment = null,
-    scrollPosition = 0
+    scrollPosition = 0,
+    isCommentLoadingError = false
   ) => ({
     ...film,
     comments,
+    isCommentLoadingError,
     checkedEmotion,
     comment,
     scrollPosition

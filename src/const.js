@@ -2,6 +2,8 @@ const FILM_COUNT = 20;
 
 const FILM_COUNT_PER_STEP = 5;
 
+const FILM_EXTRA_COUNT = 2;
+
 const EMOTIONS = ['smile', 'sleeping', 'puke', 'angry'];
 
 const FILTER_TYPE_ALL_NAME = 'All movies';
@@ -17,6 +19,7 @@ const SortType = {
   DEFAULT: 'default',
   DATE: 'date',
   RATING: 'rating',
+  COMMENT: 'comment'
 };
 
 const UserStatusValue = {
@@ -41,6 +44,7 @@ const UpdateType = {
   PATCH: 'PATCH',
   MINOR: 'MINOR',
   MAJOR: 'MAJOR',
+  EXTRA: 'EXTRA',
   INIT: 'INIT'
 };
 
@@ -50,10 +54,21 @@ const Method = {
   DELETE: 'DELETE'
 };
 
+const ExtraFilmListType = {
+  RATING: 'rating',
+  COMMENT: 'comment'
+};
+
+const TimeLimit = {
+  LOWER_LIMIT: 350,
+  UPPER_LIMIT: 1000,
+};
+
 export {
   FILM_COUNT,
   EMOTIONS,
   FILM_COUNT_PER_STEP,
+  FILM_EXTRA_COUNT,
   FILTER_TYPE_ALL_NAME,
   FilterType,
   SortType,
@@ -61,5 +76,7 @@ export {
   UserStatusTitle,
   UserAction,
   UpdateType,
-  Method
+  Method,
+  TimeLimit,
+  ExtraFilmListType
 };

@@ -10,9 +10,6 @@ const humanizeDate = (date) => {
   return dayjs.duration(timeDiff).humanize(true);
 };
 
-const formatStringToDateWithTime = (date) =>
-  new Date(date).toLocaleString('en-GB');
-
 const formatStringToDate = (date) =>
   dayjs(date).format('DD MMMM YYYY');
 
@@ -28,12 +25,15 @@ const sortFilmsByDate = (filmA, filmB) =>
 const sortFilmsByRating = (filmA, filmB) =>
   filmB.filmInfo.totalRating - filmA.filmInfo.totalRating;
 
+const sortFilmsByCommentCount = (filmA, filmB) =>
+  filmB.comments.length - filmA.comments.length;
+
 export {
   humanizeDate,
-  formatStringToDateWithTime,
   formatStringToDate,
   formatStringToYear,
   formatMinutesToTime,
   sortFilmsByDate,
-  sortFilmsByRating
+  sortFilmsByRating,
+  sortFilmsByCommentCount
 };

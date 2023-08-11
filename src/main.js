@@ -1,4 +1,4 @@
-import FilmsPresenter from './presenter/films-presenter.js';
+import MainPresenter from './presenter/main-presenter.js';
 import FilterPresenter from './presenter/filter-presenter.js';
 import HeaderProfilePresenter from './presenter/header-profile-presenter';
 import FooterStatisticsPresenter from './presenter/footer-statistics-presenter.js';
@@ -24,11 +24,12 @@ const filterModel = new FilterModel();
 
 const headerProfilePresenter = new HeaderProfilePresenter(siteHeaderElement, filmsModel);
 const footerStatisticsPresenter = new FooterStatisticsPresenter(siteFooterStatisticsElement, filmsModel);
-const filmsPresenter = new FilmsPresenter(siteMainElement, filmsModel, commentsModel, filterModel);
+
+const mainPresenter = new MainPresenter(siteMainElement, filmsModel, commentsModel, filterModel);
 const filterPresenter = new FilterPresenter(siteMainElement, filmsModel, filterModel);
 
 headerProfilePresenter.init();
 footerStatisticsPresenter.init();
 filterPresenter.init();
-filmsPresenter.init();
+mainPresenter.init();
 filmsModel.init();

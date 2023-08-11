@@ -45,7 +45,9 @@ const UpdateType = {
 };
 
 const Method = {
-  PUT: 'PUT'
+  PUT: 'PUT',
+  POST: 'POST',
+  DELETE: 'DELETE'
 };
 
 export {
